@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
+  Link,
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
@@ -12,6 +13,7 @@ import { Toaster } from 'react-hot-toast';
 import ContextProvider from './Auth/ContextProvider.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './page/user/Profile.jsx';
+import PrivateRoute from './Route/PrivateRoute.jsx';
 const queryClient = new QueryClient();
 
 
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement:<div className='w-full flex items-center justify-center flex-col gap-5'>
+      <h1 className='font-semibold text-xl md:text-2xl pt-10'>404 Page not Found</h1>
+      <Link to={'/'} className='btn w-fit bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl hover:bg-blue-800'>Go Back</Link>
+    </div>,
     children: [
       {
         path: '/',
@@ -30,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/profile',
-        element: <Profile />
+        element: <PrivateRoute><Profile /></PrivateRoute>
       }
     ]
 
