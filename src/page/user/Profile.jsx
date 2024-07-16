@@ -1,6 +1,9 @@
 import React from 'react'
 import useUser from '../../Hooks/useUser'
 import { Link } from 'react-router-dom'
+import UserRoute from '../../Route/UserRoute'
+import AdminRoute from '../../Route/AdminRoute'
+import AgencyRoute from '../../Route/AgencyRoute'
 
 function Profile() {
   const [userData] = useUser()
@@ -18,22 +21,11 @@ function Profile() {
           <h1 className='font-semibold text-xl'>Mobile: <span className='text-lg font-normal'>{userData?.mobileNumber}</span></h1>
           <h1 className='font-semibold text-xl'>Role: <span className='text-lg font-semibold text-orange-600 '>"{userData?.role}"</span></h1>
 
-        {userData.role === 'user' && <div className='flex items-center justify-center gap-2 pt-5 flex-wrap'>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Send Money</button>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Cash-Out</button>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Cash-in</button>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>History</button>
-        </div>}
+        {userData.role === 'user' && <UserRoute/>}
 
-        {userData.role === 'admin' && <div className='flex items-center justify-center gap-2 pt-5 flex-wrap'>
-          <Link to={'/allUser'} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>All User</Link>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>All Transactions </button>
-        </div>}
+        {userData.role === 'admin' && <AdminRoute/>}
 
-        {userData.role === 'agency' && <div className='flex items-center justify-center gap-2 pt-5 flex-wrap'>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>All Transactions </button>
-          <button className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>All History </button>
-        </div>}
+        {userData.role === 'agency' && <AgencyRoute/>}
 
 
       </div>
