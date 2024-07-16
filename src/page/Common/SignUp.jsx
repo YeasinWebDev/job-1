@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAxiosCommon from '../../Hooks/useAxiosCommon';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../Auth/ContextProvider';
 
 const SignUp = () => {
     const { createUser } = useContext(AuthContext)
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         pin: '',
@@ -35,7 +35,6 @@ const SignUp = () => {
         }
 
         try {
-            console.log('Submitting user data:', { name, pin, mobileNumber, email });
             const result = await createUser(email, pin)
             const response = await axiosCommon.post('/user', {
                 name,
@@ -46,9 +45,10 @@ const SignUp = () => {
                 balance:0,
                 role: "user"
             });
-
+            console.log(response)
             toast.success("Sign Up successfully!");
-            console.log('User signed up successfully:', response.data);
+            navigate('/profile')
+
         } catch (error) {
             console.error('Error signing up:', error);
             toast.error('Error signing up. Please try again.');

@@ -1,36 +1,27 @@
 
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'; 
+import { AuthContext } from '../../Auth/ContextProvider';
+import useAxiosCommon from '../../Hooks/useAxiosCommon';
 
 const SignIn = () => {
   const [emailOrMobile, setEmailOrMobile] = useState(''); 
+  const {signIn} = useContext(AuthContext)
   const [pin, setPin] = useState('');
-  const [error, setError] = useState('');
+  const axiosCommon = useAxiosCommon()
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
-      const response = await fetch('http://localhost:8000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ emailOrMobile, pin }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message);
-      }
-
-      // Redirect to the desired route after successful login
-      navigate('/dashboard');
+      const user = await axiosCommon.post('/login', {emailOrMobile ,pin })
+      await signIn(user?.data, pin)
+      toast.success("Sign In successfully!");
+      navigate('/profile')
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -61,7 +52,6 @@ const SignIn = () => {
               className='border-b-2 pl-2 outline-none'
             />
           </div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
           <button type="submit" className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign In</button>
 
           <h1 className='flex items-center justify-center pt-4 font-semibold'>Don't Have an Account <Link to={'/signup'} className='text-blue-600 font-semibold pl-4'>SignUp</Link></h1>

@@ -11,6 +11,7 @@ import SignUp from './page/Common/SignUp.jsx';
 import { Toaster } from 'react-hot-toast';
 import ContextProvider from './Auth/ContextProvider.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Profile from './page/user/Profile.jsx';
 const queryClient = new QueryClient();
 
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp />
+      },
+      {
+        path:'/profile',
+        element: <Profile />
       }
     ]
 
