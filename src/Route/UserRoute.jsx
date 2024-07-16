@@ -3,12 +3,12 @@ import Modal from '../component/Model';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 
-function UserRoute() {
+function UserRoute({refetch}) {
     const axiosSecure = useAxiosSecure()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [type, setType] = useState('');
 
-    // const handleOpenModal = () => setIsModalOpen(true);
+
     const handleCloseModal = () => setIsModalOpen(false);
 
     const handelclick = (type) =>{
@@ -16,7 +16,6 @@ function UserRoute() {
         setType(type);
     }
 const handleCashIn = async(name,email,amount,type,toemail) =>{
-    console.log(name,email,amount,type,toemail);
     const data = {
         name,
         email,
@@ -28,6 +27,7 @@ const handleCashIn = async(name,email,amount,type,toemail) =>{
         name,
         email,
         amount:Number(amount),
+        approved:true,
         type,
         toemail
     }
@@ -50,6 +50,7 @@ const handleCashIn = async(name,email,amount,type,toemail) =>{
         try {
             const res = await axiosSecure.post('/sendMoney', data2)
             toast.success('Send Money Successful')
+            refetch()
         } catch (error) {
             toast.error(error.massage)
         }
@@ -61,7 +62,7 @@ const handleCashIn = async(name,email,amount,type,toemail) =>{
             <button onClick={() => handelclick('Send Money')} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Send Money</button>
             <button onClick={() => handelclick("Cash-Out")} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Cash-Out</button>
             <button onClick={() => handelclick("Cash-in")} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Cash-in</button>
-            <button onClick={() => handelclick()} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>History</button>
+            <button onClick={() => handelclick("History")} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>History</button>
             <Modal isOpen={isModalOpen} type={type} onClose={handleCloseModal} onCashIn={handleCashIn} />
         </div>
     )

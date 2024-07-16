@@ -6,7 +6,7 @@ import AdminRoute from '../../Route/AdminRoute'
 import AgencyRoute from '../../Route/AgencyRoute'
 
 function Profile() {
-  const [userData] = useUser()
+  const [userData,refetch] = useUser()
   if(!userData.approved && userData.role !== 'admin'){
     return <h1 className='flex items-center justify-center font-semibold text-lg md:text-2xl pt-10'>Your account is not approved yet. Please wait.</h1>
   }
@@ -21,7 +21,7 @@ function Profile() {
           <h1 className='font-semibold text-xl'>Mobile: <span className='text-lg font-normal'>{userData?.mobileNumber}</span></h1>
           <h1 className='font-semibold text-xl'>Role: <span className='text-lg font-semibold text-orange-600 '>"{userData?.role}"</span></h1>
 
-        {userData.role === 'user' && <UserRoute/>}
+        {userData.role === 'user' && <UserRoute refetch={refetch}/>}
 
         {userData.role === 'admin' && <AdminRoute/>}
 
