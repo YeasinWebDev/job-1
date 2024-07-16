@@ -5,16 +5,17 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../Auth/ContextProvider';
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext)
-    const navigate = useNavigate()
+    const { createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         pin: '',
         mobileNumber: '',
         email: '',
+        role: 'user', // default role
     });
 
-    const axiosCommon = useAxiosCommon()
+    const axiosCommon = useAxiosCommon();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,27 +28,27 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { name, pin, mobileNumber, email } = formData;
+        const { name, pin, mobileNumber, email, role } = formData;
 
         if (!/^\d{6}$/.test(pin)) {
-            setError('PIN must be a 5-digit number');
+            setError('PIN must be a 6-digit number');
             return;
         }
 
         try {
-            const result = await createUser(email, pin)
+            const result = await createUser(email, pin);
             const response = await axiosCommon.post('/user', {
                 name,
                 pin,
                 mobileNumber,
                 email,
-                approved:false,
-                balance:0,
-                role: "user"
+                approved: false,
+                balance: 0,
+                role,
             });
-            console.log(response)
+            console.log(response);
             toast.success("Sign Up successfully!");
-            navigate('/profile')
+            navigate('/profile');
 
         } catch (error) {
             console.error('Error signing up:', error);
@@ -60,7 +61,7 @@ const SignUp = () => {
             <h2 className='flex items-center justify-center text-4xl font-bold'>Sign Up</h2>
             <div className='flex items-center flex-col pt-10'>
                 <form onSubmit={handleSubmit} className='w-fit border-2 p-10 rounded-xl border-black'>
-                    <div className='border-2  w-fit p-3 rounded-xl mb-2 border-black'>
+                    <div className='border-2 w-fit p-3 rounded-xl mb-2 border-black'>
                         <label className='font-semibold text-lg'>Name:</label>
                         <input
                             type="text"
@@ -71,7 +72,7 @@ const SignUp = () => {
                             className='border-b-2 pl-2 outline-none'
                         />
                     </div>
-                    <div className='border-2  w-fit p-3 rounded-xl mb-2 border-black'>
+                    <div className='border-2 w-fit p-3 rounded-xl mb-2 border-black'>
                         <label className='font-semibold text-lg'>6-digit PIN:</label>
                         <input
                             type="password"
@@ -82,7 +83,7 @@ const SignUp = () => {
                             className='border-b-2 pl-2 outline-none'
                         />
                     </div>
-                    <div className='border-2  w-fit p-3 rounded-xl mb-2 border-black'>
+                    <div className='border-2 w-fit p-3 rounded-xl mb-2 border-black'>
                         <label className='font-semibold text-lg'>Mobile Number:</label>
                         <input
                             type="text"
@@ -93,7 +94,7 @@ const SignUp = () => {
                             className='border-b-2 pl-2 outline-none'
                         />
                     </div>
-                    <div className='border-2  w-fit p-3 rounded-xl mb-2 border-black'>
+                    <div className='border-2 w-fit p-3 rounded-xl mb-2 border-black'>
                         <label className='font-semibold text-lg'>Email:</label>
                         <input
                             type="email"
@@ -104,7 +105,19 @@ const SignUp = () => {
                             className='border-b-2 pl-2 outline-none'
                         />
                     </div>
-                    <button type="submit" className='btn bg-blue-500 hover:bg-blue-800 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign Up</button>
+                    <div className='border-2 w-fit p-3 rounded-xl mb-2 border-black'>
+                        <label className='font-semibold text-lg'>Role:</label>
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            className='border-b-2 ml-2 outline-none font-semibold'
+                        >
+                            <option value="user">User</option>
+                            <option value="agency">Agency</option>
+                        </select>
+                    </div>
+                    <button type="submit" className='btn bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign Up</button>
 
                     <h1 className='flex items-center justify-center pt-4 font-semibold'>Already Have an Account <Link to={'/'} className='text-blue-600 font-semibold pl-4'>SignIn</Link></h1>
                 </form>
