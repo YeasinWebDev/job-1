@@ -14,6 +14,7 @@ import ContextProvider from './Auth/ContextProvider.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './page/user/Profile.jsx';
 import PrivateRoute from './Route/PrivateRoute.jsx';
+import AllUser from './page/Admin/AllUser.jsx';
 const queryClient = new QueryClient();
 
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path:'/profile',
         element: <PrivateRoute><Profile /></PrivateRoute>
+      },
+      {
+        path:'/allUser',
+        element: <PrivateRoute><AllUser /></PrivateRoute>
       }
     ]
 

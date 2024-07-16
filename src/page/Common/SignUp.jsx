@@ -104,7 +104,7 @@ const SignUp = () => {
                             className='border-b-2 pl-2 outline-none'
                         />
                     </div>
-                    <button type="submit" className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign Up</button>
+                    <button type="submit" className='btn bg-blue-500 hover:bg-blue-800 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign Up</button>
 
                     <h1 className='flex items-center justify-center pt-4 font-semibold'>Already Have an Account <Link to={'/'} className='text-blue-600 font-semibold pl-4'>SignIn</Link></h1>
                 </form>
