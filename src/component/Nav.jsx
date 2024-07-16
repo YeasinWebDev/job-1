@@ -8,7 +8,7 @@ function Nav() {
   const [userdata] = useUser()
   return (
     <div className='flex items-center justify-between border-b-2 pb-2 border-black'>
-        <h1 className='font-bold text-xl'>Pocket Pay</h1>
+        <Link to={'/profile'} className='font-bold text-xl'>Pocket Pay</Link>
         <div>
             <ul className='flex items-center justify-center gap-3 font-semibold cursor-pointer'>
               {

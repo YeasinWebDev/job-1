@@ -14,8 +14,8 @@ function AllUser() {
         }
     });
 
-    const handelchange = (val,id) => {
-        axiosSecure.put(`/admin/users/${id}`, { approved: val })
+    const handelchange = (val,id,role) => {
+        axiosSecure.put(`/admin/users/${id}`, { val, role })
         .then(res => {
             refetch(),
             toast.success("User status updated successfully!")
@@ -55,8 +55,8 @@ if(isUserLoading){
                                         <td className='font-semibold  text-lg'>{user.name}</td>
                                         <td className='font-semibold  text-lg'>{user.role}</td>
                                         <td className='font-semibold  text-lg'>{user.approved ? <span className='text-green-600'>Yes</span> : <span className='text-red-600'>No</span>}</td>
-                                        <td><button onClick={() => handelchange(true, user._id)} className='btn text-lg bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>activate </button></td>
-                                        <td><button onClick={() => handelchange(false, user._id)} className='btn text-lg bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>block</button></td>
+                                        <td><button onClick={() => handelchange(true, user._id, user.role)} className='btn text-lg bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>activate </button></td>
+                                        <td><button onClick={() => handelchange(false, user._id, user.role)} className='btn text-lg bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>block</button></td>
                                     </tr>
                                 ))
                             }

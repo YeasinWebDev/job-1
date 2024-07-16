@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Profile() {
   const [userData] = useUser()
-  if(!userData.approved && userData.role === 'user'){
+  if(!userData.approved && userData.role !== 'admin'){
     return <h1 className='flex items-center justify-center font-semibold text-lg md:text-2xl pt-10'>Your account is not approved yet. Please wait.</h1>
   }
   return (
