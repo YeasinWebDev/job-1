@@ -8,7 +8,7 @@ import useAxiosCommon from '../../Hooks/useAxiosCommon';
 
 const SignIn = () => {
   const [emailOrMobile, setEmailOrMobile] = useState(''); 
-  const {signIn} = useContext(AuthContext)
+  const {signIn,user} = useContext(AuthContext)
   const [pin, setPin] = useState('');
   const axiosCommon = useAxiosCommon()
   const navigate = useNavigate();
@@ -24,6 +24,9 @@ const SignIn = () => {
       toast.error(error.message);
     }
   };
+  if(user){
+    return navigate('/profile')
+  }
 
   return (
     <div>

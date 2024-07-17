@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './page/user/Profile.jsx';
 import PrivateRoute from './Route/PrivateRoute.jsx';
 import AllUser from './page/Admin/AllUser.jsx';
+import AllTransactions from './page/Agent/AllTransactions.jsx';
 const queryClient = new QueryClient();
 
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement:<div className='w-full flex items-center justify-center flex-col gap-5'>
       <h1 className='font-semibold text-xl md:text-2xl pt-10'>404 Page not Found</h1>
-      <Link to={'/'} className='btn w-fit bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl hover:bg-blue-800'>Go Back</Link>
+      <Link to={'/profile'} className='btn w-fit bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl hover:bg-blue-800'>Go Back</Link>
     </div>,
     children: [
       {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path:'/allUser',
         element: <PrivateRoute><AllUser /></PrivateRoute>
+      },
+      {
+        path:'/agency',
+        element:<PrivateRoute><AllTransactions/></PrivateRoute>
       }
     ]
 

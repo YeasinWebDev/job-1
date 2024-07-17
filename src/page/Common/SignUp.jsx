@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../Auth/ContextProvider';
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser,user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -14,6 +14,10 @@ const SignUp = () => {
         email: '',
         role: 'user', // default role
     });
+    if(user){
+        return navigate('/profile')
+      }
+    
 
     const axiosCommon = useAxiosCommon();
 
