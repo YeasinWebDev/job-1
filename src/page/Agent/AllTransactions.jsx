@@ -18,25 +18,35 @@ function AllTransactions() {
   });
 
 
-  const handelApproved = async(email,amount,id) => {
-    
-    if(userData?.balance < amount){
-     return toast.error("Don't have enough money")
+  const handelApproved = async (email, amount, id, type) => {
+
+    if (userData?.balance < amount) {
+      return toast.error("Don't have enough money")
     }
 
-    const data ={email,amount, agencyEmail: userData?.email,id}
+    const data = { email, amount, agencyEmail: userData?.email, id }
 
-    const res = await axiosSecure.post('/agency/approve', data)
-    if(res.data.matchedCount>0){
-      toast.success("Transaction Approved")
-      refetch()
+
+    if (type === 'Cash-Out') {
+      const res = await axiosSecure.post('/cashOut/approve', data)
+      if (res.data.matchedCount > 0) {
+        toast.success("Transaction Approved")
+        refetch()
+      }
+
+    } else {
+      const res = await axiosSecure.post('/cashIn/approve', data)
+      if (res.data.matchedCount > 0) {
+        toast.success("Transaction Approved")
+        refetch()
+      }
     }
   }
 
-  if(isUserLoading){
+  if (isUserLoading) {
     return <p>Loading...</p>
   }
-  
+
 
   return (
     <div>
@@ -63,7 +73,7 @@ function AllTransactions() {
                     <td className='font-semibold text-lg'>{user?.name}</td>
                     <td className='font-semibold text-lg'>{user?.amount}</td>
                     <td className='font-semibold text-lg'>{user?.type}</td>
-                    <button onClick={() => handelApproved(user?.email,user?.amount,user?._id)} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Approved</button>
+                    <button onClick={() => handelApproved(user?.email, user?.amount, user?._id, user?.type)} className='btn bg-blue-500 text-white  px-4 py-2 font-semibold rounded-xl flex items-center justify-center hover:bg-blue-800'>Approved</button>
                   </tr>
                 ))
               }

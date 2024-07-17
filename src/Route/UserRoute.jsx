@@ -39,7 +39,7 @@ const handleCashIn = async(name,email,amount,type,toemail) =>{
         } catch (error) {
             toast.error(error.massage)
         }
-    }else if(type === 'Cash-out'){
+    }else if(type === 'Cash-Out'){
         try {
             const res = await axiosSecure.post('/cashOut', data)
             toast.success('Cash-out Request Send')
