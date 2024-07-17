@@ -69,7 +69,7 @@ const Modal = ({ isOpen, onClose, onCashIn, type }) => {
                                         </thead>
                                         <tbody>
                                             {
-                                              history &&  history?.map((e,i) => (
+                                              history &&  history?.slice(0,10)?.map((e,i) => (
                                                     <tr key={e._id} className="bg-base-200">
                                                         <th>{i+1}</th>
                                                         <td>{e?.amount}</td>
