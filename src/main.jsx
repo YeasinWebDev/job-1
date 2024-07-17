@@ -17,6 +17,7 @@ import PrivateRoute from './Route/PrivateRoute.jsx';
 import AllUser from './page/Admin/AllUser.jsx';
 import AllTransactions from './page/Agent/AllTransactions.jsx';
 import AllHistory from './page/Agent/AllHistory.jsx';
+import AllTransAdmin from './page/Admin/AllTransAdmin.jsx';
 const queryClient = new QueryClient();
 
 
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: '/agencyHis',
         element: <PrivateRoute><AllHistory/></PrivateRoute>
+      },
+      {
+        path: '/allTransAdmin',
+        element: <PrivateRoute><AllTransAdmin/></PrivateRoute>
       }
     ]
 

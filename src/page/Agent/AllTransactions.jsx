@@ -10,7 +10,7 @@ function AllTransactions() {
   const [userData] = useUser()
 
   const { data: userdata = [], isLoading: isUserLoading, refetch } = useQuery({
-    queryKey: ['AgancyTrans'],
+    queryKey: ['AgancyTran'],
     queryFn: async () => {
       const response = await axiosSecure.get(`/agency`);
       return response.data;
@@ -44,7 +44,7 @@ function AllTransactions() {
   }
 
   if (isUserLoading) {
-    return <p>Loading...</p>
+    return 
   }
 
 
